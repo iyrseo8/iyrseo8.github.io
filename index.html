@@ -4,232 +4,165 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hein Soe Oo</title>
-<meta name="description" content="Hein Soe Oo — journalism student at Sogang University, Seoul. Writing, photographs, and contact.">
+
+<!-- Fonts and icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Instrument+Sans:wght@400;500&display=swap" rel="stylesheet">
-<style>
-  /* ---------- Colors: change these to restyle the whole page ---------- */
-  :root {
-    --paper: #84a98c;
-    --ink: #1B2440;
-    --muted: #5A6377;
-    --rule: #D3D8E1;
-    --mark: #FFE45C;
-    --slot: #E3E8EF;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      --paper: #121726; --ink: #E8ECF3; --muted: #A2AABB;
-      --rule: #2B3348; --mark: #8A7A12; --slot: #1D2436;
-    }
-  }
-  :root[data-theme="dark"] {
-    --paper: #121726; --ink: #E8ECF3; --muted: #A2AABB;
-    --rule: #2B3348; --mark: #8A7A12; --slot: #1D2436;
-  }
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700;800&family=Questrial&family=Noto+Sans+Myanmar:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-  /* ---------- Base ---------- */
+<style>
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
+
   body {
     margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: "Newsreader", Georgia, serif;
-    font-size: 1.1875rem;
-    line-height: 1.6;
+    background: #458aab;
+    color: #000;
+    font-family: "Open Sans", Arial, sans-serif;
   }
-  a { color: inherit; text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
-  a:hover { text-decoration-thickness: 2px; }
-  :focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
-  .wrap { max-width: 68rem; margin: 0 auto; padding: 0 1rem; }
-  @media (min-width: 720px) { .wrap { padding: 0 2.5rem; } }
-  .sans { font-family: "Instrument Sans", system-ui, sans-serif; }
+
+  a { color: inherit; text-decoration: none; }
+
+  .page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 24px 24px;
+  }
 
   /* ---------- Top bar ---------- */
   .top {
-    display: flex; justify-content: space-between; align-items: baseline;
-    gap: 1rem; padding: 1.5rem 0;
-    font-family: "Instrument Sans", system-ui, sans-serif; font-size: 0.9375rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 16px;
   }
-  .top nav { display: flex; gap: 1.25rem; }
-  .top a { text-decoration: none; }
-  .top a:hover { text-decoration: underline; }
+  .site { font-weight: 700; font-size: 18px; }
+  .social {
+    display: flex;
+    gap: 14px;
+    margin-top: 6px;
+    font-size: 26px;
+    color: #fff;
+  }
+  .email {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .email i { font-size: 22px; }
 
-  /* ---------- Hero: the dictionary entry ---------- */
-  .entry { padding: 12vh 0 14vh; border-bottom: 1px solid var(--rule); }
-  .headword {
+  /* ---------- Name ---------- */
+  .name-block { margin-top: 24px; }
+  .nickname { margin: 0; font-weight: 700; font-size: 13px; }
+  h1 {
     margin: 0;
-    font-weight: 500;
-    font-size: clamp(3.25rem, 11vw, 8.5rem);
-    line-height: 0.95;
-    letter-spacing: -0.025em;
+    font-family: "Questrial", sans-serif;
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 1.1;
   }
-  .headword .hl {
-    background-image: linear-gradient(var(--mark), var(--mark));
-    background-repeat: no-repeat;
-    background-position: 0 88%;
-    background-size: 100% 0.32em;
-    animation: sweep 1.1s cubic-bezier(.6,.05,.3,1) .35s both;
-  }
-  @keyframes sweep { from { background-size: 0% 0.32em; } to { background-size: 100% 0.32em; } }
-  @media (prefers-reduced-motion: reduce) { .headword .hl { animation: none; } }
-
-  .say {
-    margin: 1.5rem 0 0;
-    font-size: clamp(1.15rem, 2.4vw, 1.5rem);
-    color: var(--muted);
-  }
-  .say i { color: var(--ink); }
-  .say .mm { font-style: normal; margin-left: 0.6em; }
-
-  .senses {
-    margin: 3rem 0 0; padding: 0; list-style: none;
-    max-width: 40rem; counter-reset: sense;
-  }
-  .senses li {
-    counter-increment: sense;
-    display: grid; grid-template-columns: 2rem 1fr;
-    font-size: clamp(1.15rem, 2vw, 1.375rem);
-    line-height: 1.5;
-    margin-bottom: 0.9rem;
-  }
-  .senses li::before {
-    content: counter(sense) ".";
-    font-weight: 600;
-  }
-  .senses em { color: var(--muted); }
-
-  /* ---------- Sections ---------- */
-  section { padding: 5.5rem 0; border-bottom: 1px solid var(--rule); }
-  .sec-head {
-    display: grid; gap: 0.5rem 3rem; margin-bottom: 2.5rem;
-  }
-  @media (min-width: 860px) { .sec-head { grid-template-columns: 16rem 1fr; align-items: baseline; } }
-  h2 {
-    margin: 0; font-weight: 500;
-    font-size: clamp(2rem, 4.5vw, 2.75rem); letter-spacing: -0.015em; line-height: 1.1;
-  }
-  .sec-head p { margin: 0; max-width: 36rem; color: var(--muted); }
-
-  /* Writing list */
-  .pieces { list-style: none; margin: 0; padding: 0; }
-  @media (min-width: 860px) { .pieces { margin-left: 19rem; } }
-  .pieces li { border-top: 1px solid var(--rule); }
-  .pieces li:last-child { border-bottom: 1px solid var(--rule); }
-  .pieces a {
-    display: grid; gap: 0.25rem; padding: 1.25rem 0; text-decoration: none;
-  }
-  @media (min-width: 640px) { .pieces a { grid-template-columns: 1fr auto; gap: 2rem; align-items: baseline; } }
-  .pieces .t { font-size: 1.375rem; line-height: 1.3; }
-  .pieces a:hover .t { text-decoration: underline; text-underline-offset: 0.2em; }
-  .pieces .m { font-family: "Instrument Sans", system-ui, sans-serif; font-size: 0.875rem; color: var(--muted); }
-
-  /* Photographs */
-  .photos {
-    display: grid; gap: 0.75rem;
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 860px) {
-    .photos { grid-template-columns: repeat(6, 1fr); gap: 1rem; }
-    .photos figure:nth-child(1) { grid-column: span 3; grid-row: span 2; }
-    .photos figure:nth-child(n+2) { grid-column: span 3; }
-    .photos figure:nth-child(n+4) { grid-column: span 2; }
-  }
-  .photos figure {
-    margin: 0; position: relative; background: var(--slot);
-    aspect-ratio: 4 / 5; overflow: hidden;
-  }
-  @media (min-width: 860px) {
-    .photos figure:nth-child(2), .photos figure:nth-child(3) { aspect-ratio: auto; }
-  }
-  .photos img { width: 100%; height: 100%; object-fit: cover; display: block; position: relative; z-index: 1; }
-  .photos .ph {
-    position: absolute; inset: 0; display: grid; place-items: center; padding: 1rem;
-    font-family: "Instrument Sans", system-ui, sans-serif; font-size: 0.8125rem;
-    color: var(--muted); text-align: center;
+  .say { margin: 6px 0 0 4px; font-size: 13px; }
+  .burmese {
+    margin-left: 8px;
+    font-family: "Noto Sans Myanmar", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
   }
 
-  /* Contact */
-  .contact { border-bottom: 0; }
-  .contact-links { font-size: clamp(1.5rem, 3.5vw, 2.25rem); line-height: 1.5; }
-  @media (min-width: 860px) { .contact-links { margin-left: 19rem; } }
-  .contact-links p { margin: 0; }
+  /* ---------- Photo + text ---------- */
+  .intro {
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 70px;
+    margin-top: 12px;
+  }
+  .intro img {
+    display: block;
+    width: 240px;
+    height: 255px;
+    object-fit: cover;
+  }
+  .intro p {
+    margin: 0;
+    color: #fff;
+    font-weight: 700;
+    font-size: 28px;
+  }
 
+  /* ---------- Line + subheading ---------- */
+  hr {
+    border: 0;
+    border-top: 4px solid #fff;
+    margin: 46px 0 20px;
+  }
+  h2 { margin: 0; font-weight: 800; font-size: 64px; }
+
+  /* ---------- Footer ---------- */
   footer {
-    padding: 2rem 0 3rem; color: var(--muted);
-    font-family: "Instrument Sans", system-ui, sans-serif; font-size: 0.875rem;
+    margin-top: 90px;
+    text-align: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+  }
+
+  /* ---------- Phones ---------- */
+  @media (max-width: 640px) {
+    .intro { grid-template-columns: 1fr; gap: 24px; }
+    .intro img { width: 100%; height: auto; aspect-ratio: 240 / 255; }
+    h1 { font-size: 40px; }
+    h2 { font-size: 40px; }
   }
 </style>
 </head>
+
 <body>
-  <div class="wrap">
+  <div class="page">
+
+    <!-- Top bar -->
     <header class="top">
-      <a href="/">heinsoeoo.me</a>
-      <nav aria-label="Sections">
-        <a href="#writing">Writing</a>
-        <a href="#photographs">Photographs</a>
-        <a href="#contact">Contact</a>
-      </nav>
+      <div>
+        <div class="site">heinsoeoo.me</div>
+        <div class="social">
+          <!-- Replace each # with your profile link -->
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+          <a href="#" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        </div>
+      </div>
+      <a class="email" href="mailto:heinsoeoo.154202@gmail.com">
+        <i class="fa-regular fa-envelope"></i>
+        heinsoeoo.154202@gmail.com
+      </a>
     </header>
 
-    <!-- HERO: your name written like a dictionary entry -->
+    <!-- Name -->
     <main>
-      <div class="entry">
-        <h1 class="headword"><span class="hl">Hein Soe Oo</span></h1>
-        <p class="say"><i>noun</i> &nbsp;(hayn soh oo)<span class="mm" lang="my">ဟိန်းစိုးဦး</span></p>
-        <ol class="senses">
-          <li><span>A journalism student at Sogang University in Seoul, also studying English.</span></li>
-          <li><span>A reader of media and cultural theory, and of how language shapes what we notice.</span></li>
-          <li><span>An outdoor portrait photographer, usually with a Fujifilm. <em>See photographs, below.</em></span></li>
-        </ol>
+      <div class="name-block">
+        <p class="nickname">(Call me Hein)</p>
+        <h1>Hein Soe Oo</h1>
+        <p class="say">(Hayn- Soh- Oo)<span class="burmese" lang="my">ဟိန်းစိုးဦး</span></p>
       </div>
 
-      <!-- WRITING: replace each title, date and link with your own pieces -->
-      <section id="writing" aria-labelledby="writing-h">
-        <div class="sec-head">
-          <h2 id="writing-h">Writing</h2>
-          <p>Reporting, essays and coursework on media, culture and language.</p>
-        </div>
-        <ul class="pieces">
-          <li><a href="#"><span class="t">Title of your first piece</span><span class="m">Publication or course, 2026</span></a></li>
-          <li><a href="#"><span class="t">Title of your second piece</span><span class="m">Publication or course, 2026</span></a></li>
-          <li><a href="#"><span class="t">Title of your third piece</span><span class="m">Publication or course, 2026</span></a></li>
-        </ul>
-      </section>
+      <!-- Photo + text -->
+      <div class="intro">
+        <!-- Upload your photo to the repository and name it photo.jpg -->
+        <img src="photo.jpg" alt="Photo of Hein Soe Oo">
+        <p>Text</p>
+      </div>
 
-      <!-- PHOTOGRAPHS: create a folder called "photos" in your repository
-           and upload images named 1.jpg to 6.jpg. They appear here automatically. -->
-      <section id="photographs" aria-labelledby="photos-h">
-        <div class="sec-head">
-          <h2 id="photos-h">Photographs</h2>
-          <p>Outdoor portraits, mostly around Seoul.</p>
-        </div>
-        <div class="photos">
-          <figure><img src="photos/1.jpg" alt="Portrait photograph" loading="lazy" onerror="this.remove()"><span class="ph">photos/1.jpg</span></figure>
-          <figure><img src="photos/2.jpg" alt="Portrait photograph" loading="lazy" onerror="this.remove()"><span class="ph">photos/2.jpg</span></figure>
-          <figure><img src="photos/3.jpg" alt="Portrait photograph" loading="lazy" onerror="this.remove()"><span class="ph">photos/3.jpg</span></figure>
-          <figure><img src="photos/4.jpg" alt="Portrait photograph" loading="lazy" onerror="this.remove()"><span class="ph">photos/4.jpg</span></figure>
-          <figure><img src="photos/5.jpg" alt="Portrait photograph" loading="lazy" onerror="this.remove()"><span class="ph">photos/5.jpg</span></figure>
-          <figure><img src="photos/6.jpg" alt="Portrait photograph" loading="lazy" onerror="this.remove()"><span class="ph">photos/6.jpg</span></figure>
-        </div>
-      </section>
+      <hr>
 
-      <!-- CONTACT -->
-      <section id="contact" class="contact" aria-labelledby="contact-h">
-        <div class="sec-head">
-          <h2 id="contact-h">Contact</h2>
-          <p>For writing, photo shoots, or just to say hello.</p>
-        </div>
-        <div class="contact-links">
-          <p><a href="mailto:iyrseo8@sogang.ac.kr">iyrseo8@sogang.ac.kr</a></p>
-          <p><a href="https://github.com/iyrseo8">GitHub</a></p>
-        </div>
-      </section>
+      <h2>Add a subheading</h2>
     </main>
 
-    <footer>© 2026 Hein Soe Oo</footer>
+    <!-- Footer -->
+    <footer>© HEIN SOE OO</footer>
+
   </div>
 </body>
 </html>
