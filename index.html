@@ -8,7 +8,7 @@
 <!-- Fonts and icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700;800&family=Questrial&family=Noto+Sans+Myanmar:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700;800&family=Questrial&family=Noto+Sans+Myanmar:wght@700&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
@@ -30,14 +30,29 @@
   }
 
   /* ---------- Top bar ---------- */
-  .top {
+  .row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
+    align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px 16px;
   }
   .site { font-weight: 700; font-size: 18px; }
+
+  /* Header links: Me / Publications / Side quests */
+  .nav { display: flex; gap: 24px; }
+  .nav a {
+    color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: underline 2px transparent;
+    text-underline-offset: 6px;
+    transition: text-decoration-color 0.2s;
+  }
+  .nav a:hover,
+  .nav a[aria-current="page"] { text-decoration-color: #fff; }
+  a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
   .social {
     display: flex;
     gap: 14px;
@@ -45,15 +60,19 @@
     font-size: 26px;
     color: #fff;
   }
-  .email {
+
+  /* ---------- Sliding pages ---------- */
+  .slides {
     display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #fff;
-    font-weight: 700;
-    font-size: 14px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;          /* hide scrollbar (Firefox) */
   }
-  .email i { font-size: 22px; }
+  .slides::-webkit-scrollbar { display: none; }  /* hide scrollbar (Chrome, Safari) */
+  .slide {
+    flex: 0 0 100%;
+    scroll-snap-align: start;
+  }
 
   /* ---------- Name ---------- */
   .name-block { margin-top: 24px; }
@@ -72,11 +91,17 @@
     font-weight: 700;
     font-size: 18px;
   }
+  .korean {
+    margin-left: 8px;
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+  }
 
-  /* ---------- Photo + text ---------- */
+  /* ---------- Photo + email + text ---------- */
   .intro {
     display: grid;
-    grid-template-columns: 240px 1fr;
+    grid-template-columns: 300px 1fr;
     gap: 70px;
     margin-top: 12px;
   }
@@ -86,6 +111,16 @@
     height: 255px;
     object-fit: cover;
   }
+  .email {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .email i { font-size: 22px; }
   .intro p {
     margin: 0;
     color: #fff;
@@ -112,6 +147,7 @@
 
   /* ---------- Phones ---------- */
   @media (max-width: 640px) {
+    .nav { gap: 16px; }
     .intro { grid-template-columns: 1fr; gap: 24px; }
     .intro img { width: 100%; height: auto; aspect-ratio: 300 / 255; }
     h1 { font-size: 40px; }
@@ -124,45 +160,128 @@
   <div class="page">
 
     <!-- Top bar -->
-    <header class="top">
-      <div>
+    <header>
+      <div class="row">
         <div class="site">heinsoeoo.me</div>
-        <div class="social">
-          <!-- Replace each # with your profile link -->
-          <a href="https://www.facebook.com/dev.hso/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
-          <a href="www.linkedin.com/in/hein-soe-oo-50a5021a9" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-          <a href="https://www.instagram.com/iyrseo8/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-        </div>
+        <nav class="nav" aria-label="Pages">
+          <a href="#me" aria-current="page">Me</a>
+          <a href="#publications">Publications</a>
+          <a href="#side-quests">Side quests</a>
+        </nav>
       </div>
-      <a class="email" href="mailto:heinsoeoo.154202@gmail.com">
-        <i class="fa-regular fa-envelope"></i>
-        heinsoeoo.154202@gmail.com
-      </a>
+      <div class="social">
+        <!-- Replace each # with your profile link -->
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+        <a href="#" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      </div>
     </header>
 
-    <!-- Name -->
-    <main>
-      <div class="name-block">
-        <p class="nickname">(Call me Hein)</p>
-        <h1>Hein Soe Oo</h1>
-        <p class="say">(Hayn- Soh- Oo)<span class="burmese" lang="my">ဟိန်းစိုးဦး< span class="korean" lang="myk"> 해인소우 </span></p>
-      </div>
+    <main class="slides">
 
-      <!-- Photo + text -->
-      <div class="intro">
-        <!-- Upload your photo to the repository and name it photo.jpg -->
-        <img src="photo.jpg" alt="Photo of Hein Soe Oo">
-        <p>Text</p>
-      </div>
+      <!-- ===== PAGE 1: Me  (heinsoeoo.me) ===== -->
+      <section class="slide" id="me" aria-label="Me">
+        <div class="name-block">
+          <p class="nickname">(Call me Hein)</p>
+          <h1>Hein Soe Oo</h1>
+          <p class="say">(Hayn- Soh- Oo)<span class="burmese" lang="my">ဟိန်းစိုးဦး</span><span class="korean" lang="ko">해인소우</span></p>
+        </div>
 
-      <hr>
+        <div class="intro">
+          <div>
+            <!-- Upload your photo to the repository and name it photo.jpg -->
+            <img src="photo.jpg" alt="Photo of Hein Soe Oo">
+            <a class="email" href="mailto:heinsoeoo.154202@gmail.com">
+              <i class="fa-regular fa-envelope"></i>
+              heinsoeoo.154202@gmail.com
+            </a>
+          </div>
+          <p>Text</p>
+        </div>
 
-      <h2>Add a subheading</h2>
+        <hr>
+
+        <h2>Add a subheading</h2>
+      </section>
+
+      <!-- ===== PAGE 2: Publications  (heinsoeoo.me/#publications) — empty for now ===== -->
+      <section class="slide" id="publications" aria-label="Publications">
+      </section>
+
+      <!-- ===== PAGE 3: Side quests  (heinsoeoo.me/#side-quests) — empty for now ===== -->
+      <section class="slide" id="side-quests" aria-label="Side quests">
+      </section>
+
     </main>
 
     <!-- Footer -->
     <footer>© HEIN SOE OO</footer>
 
   </div>
+
+<script>
+  // Makes the pages slide, gives each page its own link,
+  // and keeps the header underline on the current page.
+  const slides = document.querySelector('.slides');
+  const pages = [...document.querySelectorAll('.slide')];
+  const links = [...document.querySelectorAll('.nav a')];
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Some browsers block address changes when the file is opened from your
+  // computer instead of the website. This stops that from causing an error.
+  function changeAddress(method, address) {
+    try { history[method](null, '', address); } catch (e) {}
+  }
+
+  function pageFromAddress() {
+    const i = pages.findIndex(p => '#' + p.id === location.hash);
+    return i < 0 ? 0 : i;
+  }
+  function addressFor(i) {
+    return i === 0 ? location.pathname : '#' + pages[i].id;
+  }
+  function slideTo(i, smooth) {
+    slides.scrollTo({ left: i * slides.clientWidth, behavior: smooth && !reduceMotion ? 'smooth' : 'auto' });
+  }
+  function underline(i) {
+    links.forEach((link, j) => {
+      if (j === i) link.setAttribute('aria-current', 'page');
+      else link.removeAttribute('aria-current');
+    });
+  }
+
+  // Clicking a header link: slide to that page and change the address
+  links.forEach((link, i) => {
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      slideTo(i, true);
+      changeAddress('pushState', addressFor(i));
+    });
+  });
+
+  // Swiping: update the underline, then the address once the swipe settles
+  let settle;
+  slides.addEventListener('scroll', () => {
+    const i = Math.round(slides.scrollLeft / slides.clientWidth);
+    underline(i);
+    clearTimeout(settle);
+    settle = setTimeout(() => {
+      if (pageFromAddress() !== i) changeAddress('replaceState', addressFor(i));
+    }, 150);
+  });
+
+  // Browser back / forward buttons
+  window.addEventListener('popstate', () => slideTo(pageFromAddress(), true));
+
+  // Opening a link like heinsoeoo.me/#publications: start on that page
+  function openFromAddress() {
+    const i = pageFromAddress();
+    underline(i);
+    slideTo(i, false);
+    window.scrollTo(0, 0);
+  }
+  openFromAddress();
+  window.addEventListener('load', openFromAddress);
+</script>
 </body>
 </html>
