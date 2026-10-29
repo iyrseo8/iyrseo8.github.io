@@ -162,7 +162,7 @@
   /* ---------- Resume boxes ---------- */
   .resume {
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr 1fr 1.6fr;
+    grid-template-columns: repeat(5, 1fr);   /* five equal boxes */
     gap: 14px;
     margin-top: 22px;
   }
@@ -182,21 +182,23 @@
   }
 
   /* Education: school and years on one line, majors lined up below */
-  .edu-top {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 6px;
-    font-weight: 700;
-  }
+  .edu-top { font-weight: 700; }
+  .years { margin-bottom: 8px; opacity: 0.85; }
   .edu {
     display: grid;
     grid-template-columns: max-content 1fr;
-    gap: 3px 16px;
+    gap: 3px 12px;
     margin: 0;
   }
   .edu dt { font-weight: 600; opacity: 0.85; }
   .edu dd { margin: 0; }
+
+  /* On smaller laptops the boxes are narrower, so each major's
+     label sits above its name instead of beside it */
+  @media (max-width: 1200px) {
+    .majors { grid-template-columns: 1fr; gap: 0; }
+    .majors dd + dt { margin-top: 6px; }
+  }
 
   /* Simple lists (Languages, and later Skills or Experience) */
   .list { margin: 0; padding: 0; list-style: none; }
@@ -300,14 +302,12 @@
         <div class="resume">
           <section class="box wide">
             <h3>Education</h3>
-            <div class="edu-top">
-              <span>Sogang University</span>
-              <span>2024 – 2028</span>
-            </div>
-            <dl class="edu">
+            <div class="edu-top">Sogang University</div>
+            <div class="years">2024 – 2028</div>
+            <dl class="edu majors">
               <dt>Major</dt>
               <dd>Journalism</dd>
-              <dt>Second major</dt>
+              <dt>2nd major</dt>
               <dd>Computer Science</dd>
             </dl>
           </section>
@@ -345,7 +345,7 @@
             <h3>Contact</h3>
             <a class="contact-line" href="mailto:heinsoeoo.154202@gmail.com">
               <i class="fa-regular fa-envelope"></i>
-              <span>heinsoeoo.154202@gmail.com</span>
+              <span>heinsoeoo.154202<wbr>@gmail.com</span>
             </a>
           </section>
         </div>
