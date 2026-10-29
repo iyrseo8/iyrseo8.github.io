@@ -153,23 +153,6 @@
     h1 { font-size: 40px; }
     h2 { font-size: 40px; }
   }
-
-  /* ---------- Two white margin lines on the left ---------- */
-  .page {
-    position: relative;
-    min-height: 100vh;      /* lines reach the bottom of the screen even on short pages */
-  }
-  .page::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 6px;              /* distance from the left edge of the content area */
-    width: 6px;             /* space between the two lines */
-    border-left: 2px solid #fff;
-    border-right: 2px solid #fff;
-    pointer-events: none;   /* lines can't block clicks */
-  }
 </style>
 </head>
 
