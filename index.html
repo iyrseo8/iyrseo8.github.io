@@ -8,28 +8,44 @@
 <!-- Fonts and icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@700;800&family=Questrial&family=Noto+Sans+Myanmar:wght@700&family=Noto+Sans+KR:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&family=Questrial&family=Noto+Sans+Myanmar:wght@700&family=Noto+Sans+KR:wght@700&family=Anton&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
+  /* ---------- Colors: change them here ---------- */
+  :root {
+    --me: #458aab;            /* Me page background */
+    --publications: #6f9a6b;  /* Publications page background */
+    --side-quests: #9a7bb0;   /* Side quests page background */
+    --text: #000;             /* one color for all text outside the header */
+  }
+
   * { box-sizing: border-box; }
 
   body {
     margin: 0;
-    background: #458aab;
-    color: #000;
+    background: var(--me);
+    color: var(--text);
     font-family: "Open Sans", Arial, sans-serif;
+    transition: background-color 0.4s;
   }
+  /* The background changes with the current page */
+  body[data-page="publications"] { background: var(--publications); }
+  body[data-page="side-quests"] { background: var(--side-quests); }
 
   a { color: inherit; text-decoration: none; }
 
+  /* The whole page fits in one screen; the footer sits at the bottom */
   .page {
     max-width: 1000px;
+    min-height: 100vh;
     margin: 0 auto;
-    padding: 40px 24px 24px;
+    padding: 40px 24px 20px;
+    display: flex;
+    flex-direction: column;
   }
 
-  /* ---------- Top bar ---------- */
+  /* ---------- Top bar (unchanged) ---------- */
   .row {
     display: flex;
     justify-content: space-between;
@@ -75,7 +91,7 @@
   }
 
   /* ---------- Name ---------- */
-  .name-block { margin-top: 24px; }
+  .name-block { margin-top: 20px; }
   .nickname { margin: 0; font-weight: 700; font-size: 13px; }
   h1 {
     margin: 0;
@@ -98,65 +114,76 @@
     font-size: 16px;
   }
 
-  /* ---------- Photo + email + text ---------- */
+  /* ---------- Photo + Impact words ----------
+     --photo-h shrinks the photo on short screens so everything fits
+     without scrolling. The words are sized to match the photo's height. */
   .intro {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 70px;
-    margin-top: 12px;
+    --photo-h: clamp(150px, calc(100vh - 480px), 255px);
+    display: flex;
+    align-items: stretch;
+    gap: 40px;
+    margin-top: 16px;
   }
   .intro img {
     display: block;
-    width: 300px;
-    height: 255px;
+    height: var(--photo-h);
+    width: auto;
+    aspect-ratio: 300 / 255;
     object-fit: cover;
   }
-  .email {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    margin-top: 12px;
-    color: #fff;
-    font-weight: 700;
-    font-size: 14px;
-  }
-  .email i { font-size: 22px; }
-  .intro p {
+  .focus {
     margin: 0;
-    color: #fff;
-    font-weight: 700;
-    font-size: 28px;
+    padding: 0;
+    list-style: none;
+    font-family: Impact, "Anton", "Arial Narrow", sans-serif;
+    font-size: calc(var(--photo-h) / 5);
+    line-height: 1;
+    letter-spacing: 0.01em;
   }
 
-  /* ---------- Line + subheading ---------- */
-  hr {
-    border: 0;
-    border-top: 4px solid #fff;
-    margin: 46px 0 20px;
+  /* ---------- Resume ---------- */
+  .resume {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    margin-top: 24px;
   }
-  h2 { margin: 0; font-weight: 800; font-size: 64px; }
+  .resume h3 {
+    margin: 0 0 6px;
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .resume p {
+    margin: 0;
+    font-weight: 400;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .resume strong { font-weight: 700; }
 
   /* ---------- Footer ---------- */
   footer {
-    margin-top: 90px;
+    margin-top: auto;
+    padding-top: 20px;
     text-align: center;
-    color: #fff;
     font-weight: 700;
     font-size: 16px;
   }
 
-  /* ---------- Phones ---------- */
-  @media (max-width: 640px) {
+  /* ---------- Phones: too small for one screen, so the page scrolls ---------- */
+  @media (max-width: 760px) {
     .nav { gap: 16px; }
-    .intro { grid-template-columns: 1fr; gap: 24px; }
-    .intro img { width: 100%; height: auto; aspect-ratio: 300 / 255; }
     h1 { font-size: 40px; }
-    h2 { font-size: 40px; }
+    .intro { --photo-h: 150px; gap: 20px; }
+    .resume { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 420px) {
+    .intro { --photo-h: 125px; gap: 16px; }
   }
 </style>
 </head>
 
-<body>
+<body data-page="me">
   <div class="page">
 
     <!-- Top bar -->
@@ -187,21 +214,47 @@
           <p class="say">(Hayn- Soh- Oo)<span class="burmese" lang="my">ဟိန်းစိုးဦး</span><span class="korean" lang="ko">해인소우</span></p>
         </div>
 
+        <!-- Photo with the Impact words beside it -->
         <div class="intro">
-          <div>
-            <!-- Upload your photo to the repository and name it photo.jpg -->
-            <img src="photo.jpg" alt="Photo of Hein Soe Oo">
-            <a class="email" href="mailto:heinsoeoo.154202@gmail.com">
-              <i class="fa-regular fa-envelope"></i>
-              heinsoeoo.154202@gmail.com
-            </a>
-          </div>
-          <p>Text</p>
+          <!-- Upload your photo to the repository and name it photo.jpg -->
+          <img src="photo.jpg" alt="Photo of Hein Soe Oo">
+          <ul class="focus">
+            <li>Journalism</li>
+            <li>Data</li>
+            <li>Content</li>
+            <li>Language</li>
+            <li>Photos</li>
+          </ul>
         </div>
 
-        <hr>
-
-        <h2>ME!</h2>
+        <!-- Resume: fill in the empty sections later -->
+        <div class="resume">
+          <section>
+            <h3>Education</h3>
+            <p>
+              <strong>Sogang University</strong><br>
+              2024 – 2028<br>
+              Journalism, major<br>
+              Computer Science, second major
+            </p>
+          </section>
+          <section>
+            <h3>Experience</h3>
+            <p></p>
+          </section>
+          <section>
+            <h3>Skills</h3>
+            <p></p>
+          </section>
+          <section>
+            <h3>Languages</h3>
+            <p></p>
+          </section>
+          <section>
+            <h3>Contact</h3>
+            <p><a href="mailto:heinsoeoo.154202@gmail.com">heinsoeoo.154202@gmail.com</a></p>
+          </section>
+        </div>
       </section>
 
       <!-- ===== PAGE 2: Publications  (heinsoeoo.me/#publications) — empty for now ===== -->
@@ -221,7 +274,8 @@
 
 <script>
   // Makes the pages slide, gives each page its own link,
-  // and keeps the header underline on the current page.
+  // keeps the header underline on the current page,
+  // and changes the background color to match the page.
   const slides = document.querySelector('.slides');
   const pages = [...document.querySelectorAll('.slide')];
   const links = [...document.querySelectorAll('.nav a')];
@@ -243,7 +297,8 @@
   function slideTo(i, smooth) {
     slides.scrollTo({ left: i * slides.clientWidth, behavior: smooth && !reduceMotion ? 'smooth' : 'auto' });
   }
-  function underline(i) {
+  function markCurrent(i) {
+    document.body.dataset.page = pages[i].id;
     links.forEach((link, j) => {
       if (j === i) link.setAttribute('aria-current', 'page');
       else link.removeAttribute('aria-current');
@@ -259,11 +314,11 @@
     });
   });
 
-  // Swiping: update the underline, then the address once the swipe settles
+  // Swiping: update the color and underline, then the address once the swipe settles
   let settle;
   slides.addEventListener('scroll', () => {
     const i = Math.round(slides.scrollLeft / slides.clientWidth);
-    underline(i);
+    markCurrent(i);
     clearTimeout(settle);
     settle = setTimeout(() => {
       if (pageFromAddress() !== i) changeAddress('replaceState', addressFor(i));
@@ -276,7 +331,7 @@
   // Opening a link like heinsoeoo.me/#publications: start on that page
   function openFromAddress() {
     const i = pageFromAddress();
-    underline(i);
+    markCurrent(i);
     slideTo(i, false);
     window.scrollTo(0, 0);
   }
