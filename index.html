@@ -26,7 +26,7 @@
   .page {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 40px 24px 24px;
+    padding: 0 24px 24px;
   }
 
   /* ---------- Top bar ---------- */
@@ -144,6 +144,15 @@
     font-weight: 700;
     font-size: 16px;
   }
+ /* ---------- Colored header bar ---------- */
+.topbar {
+  background: #2f6f8f;                  /* bar color */
+  padding: 18px 0;                      /* bar height: bigger = taller */
+  box-shadow: 0 0 0 100vmax #2f6f8f;    /* stretches the color to both window edges; use the same color */
+  clip-path: inset(0 -100vmax);         /* stops the color from spreading above or below the bar */
+}
+.topbar .site { color: #fff; }          /* makes heinsoeoo.me readable on the darker bar */
+.social { margin-top: 20px; }           /* space between the bar and the icons */
 
   /* ---------- Phones ---------- */
   @media (max-width: 640px) {
@@ -162,6 +171,7 @@
     <!-- Top bar -->
     <header>
       <div class="row">
+       <div class="row topbar">
         <div class="site">heinsoeoo.me</div>
         <nav class="nav" aria-label="Pages">
           <a href="#me" aria-current="page">Me</a>
