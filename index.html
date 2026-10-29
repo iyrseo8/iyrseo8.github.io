@@ -8,7 +8,7 @@
 <!-- Fonts and icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700;800&family=Questrial&family=Noto+Sans+Myanmar:wght@700&family=Noto+Sans+KR:wght@700&family=Anton&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&family=Questrial&family=Noto+Sans+Myanmar:wght@700&family=Noto+Sans+KR:wght@700&family=Anton&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
@@ -17,7 +17,9 @@
     --me: #458aab;            /* Me page background */
     --publications: #6f9a6b;  /* Publications page background */
     --side-quests: #9a7bb0;   /* Side quests page background */
-    --text: #000;             /* one color for all text outside the header */
+    --text: #fff;             /* one color for all text */
+    --box: rgba(255, 255, 255, 0.12);         /* resume box fill */
+    --box-line: rgba(255, 255, 255, 0.35);    /* resume box outline */
   }
 
   * { box-sizing: border-box; }
@@ -35,17 +37,18 @@
 
   a { color: inherit; text-decoration: none; }
 
-  /* The whole page fits in one screen; the footer sits at the bottom */
+  /* Wider content area with smaller side padding.
+     The page fits in one screen; the footer sits at the bottom. */
   .page {
-    max-width: 1000px;
+    max-width: 1240px;
     min-height: 100vh;
     margin: 0 auto;
-    padding: 40px 24px 20px;
+    padding: 32px 32px 18px;
     display: flex;
     flex-direction: column;
   }
 
-  /* ---------- Top bar (unchanged) ---------- */
+  /* ---------- Top bar ---------- */
   .row {
     display: flex;
     justify-content: space-between;
@@ -58,7 +61,6 @@
   /* Header links: Me / Publications / Side quests */
   .nav { display: flex; gap: 24px; }
   .nav a {
-    color: #fff;
     font-weight: 700;
     font-size: 16px;
     text-decoration: underline 2px transparent;
@@ -66,19 +68,21 @@
     transition: text-decoration-color 0.2s;
   }
   .nav a:hover,
-  .nav a[aria-current="page"] { text-decoration-color: #fff; }
-  a:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+  .nav a[aria-current="page"] { text-decoration-color: var(--text); }
+  a:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
 
   .social {
     display: flex;
     gap: 14px;
-    margin-top: 6px;
-    font-size: 26px;
-    color: #fff;
+    margin-top: 8px;
+    font-size: 24px;
   }
+  .social a { opacity: 0.9; transition: opacity 0.2s; }
+  .social a:hover { opacity: 1; }
 
   /* ---------- Sliding pages ---------- */
   .slides {
+    margin: auto 0;                 /* centers the content between header and footer */
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
@@ -90,95 +94,155 @@
     scroll-snap-align: start;
   }
 
-  /* ---------- Name ---------- */
-  .name-block { margin-top: 20px; }
-  .nickname { margin: 0; font-weight: 700; font-size: 13px; }
-  h1 {
-    margin: 0;
-    font-family: "Questrial", sans-serif;
-    font-weight: 400;
-    font-size: 48px;
-    line-height: 1.1;
-  }
-  .say { margin: 6px 0 0 4px; font-size: 13px; }
-  .burmese {
-    margin-left: 8px;
-    font-family: "Noto Sans Myanmar", sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-  }
-  .korean {
-    margin-left: 8px;
-    font-family: "Noto Sans KR", sans-serif;
-    font-weight: 700;
-    font-size: 16px;
-  }
-
-  /* ---------- Photo + Impact words ----------
+  /* ---------- Hero: photo | name | Impact words ----------
      --photo-h shrinks the photo on short screens so everything fits
-     without scrolling. The words are sized to match the photo's height. */
-  .intro {
-    --photo-h: clamp(150px, calc(100vh - 480px), 255px);
-    display: flex;
-    align-items: stretch;
-    gap: 40px;
-    margin-top: 16px;
+     without scrolling. The Impact words are sized to match the photo. */
+  .hero {
+    --photo-h: clamp(160px, calc(100vh - 370px), 330px);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "photo name words";
+    align-items: end;
+    gap: 36px;
+    margin-top: 22px;
   }
-  .intro img {
+  .hero img {
+    grid-area: photo;
     display: block;
     height: var(--photo-h);
     width: auto;
     aspect-ratio: 300 / 255;
     object-fit: cover;
+    border-radius: 12px;
   }
+
+  /* Name */
+  .name-block { grid-area: name; }
+  .nickname { margin: 0; font-weight: 700; font-size: 13px; }
+  h1 {
+    margin: 2px 0 0;
+    font-family: "Questrial", sans-serif;
+    font-weight: 400;
+    font-size: 54px;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+  }
+  .say {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    margin: 8px 0 0;
+    font-size: 13px;
+  }
+  .burmese {
+    font-family: "Noto Sans Myanmar", sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+  }
+  .korean {
+    font-family: "Noto Sans KR", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  /* Impact words */
   .focus {
+    grid-area: words;
     margin: 0;
     padding: 0;
     list-style: none;
+    text-align: right;
     font-family: Impact, "Anton", "Arial Narrow", sans-serif;
     font-size: calc(var(--photo-h) / 5);
     line-height: 1;
-    letter-spacing: 0.01em;
+    letter-spacing: 0.02em;
   }
 
-  /* ---------- Resume ---------- */
+  /* ---------- Resume boxes ---------- */
   .resume {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 24px;
-    margin-top: 24px;
+    grid-template-columns: 2fr 1fr 1fr 1fr 1.6fr;
+    gap: 14px;
+    margin-top: 22px;
   }
-  .resume h3 {
-    margin: 0 0 6px;
-    font-weight: 800;
-    font-size: 15px;
-  }
-  .resume p {
-    margin: 0;
-    font-weight: 400;
+  .box {
+    min-height: 118px;
+    padding: 14px 16px;
+    background: var(--box);
+    border: 1px solid var(--box-line);
+    border-radius: 12px;
     font-size: 13px;
     line-height: 1.5;
   }
-  .resume strong { font-weight: 700; }
+  .box h3 {
+    margin: 0 0 10px;
+    font-weight: 800;
+    font-size: 15px;
+  }
+
+  /* Education: school and years on one line, majors lined up below */
+  .edu-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 6px;
+    font-weight: 700;
+  }
+  .edu {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 3px 16px;
+    margin: 0;
+  }
+  .edu dt { font-weight: 600; opacity: 0.85; }
+  .edu dd { margin: 0; }
+
+  /* Simple lists (Languages, and later Skills or Experience) */
+  .list { margin: 0; padding: 0; list-style: none; }
+  .list li + li { margin-top: 3px; }
+
+  /* Contact */
+  .contact-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    overflow-wrap: anywhere;
+  }
+  .contact-line i { font-size: 15px; }
+  .contact-line:hover span { text-decoration: underline; text-underline-offset: 3px; }
 
   /* ---------- Footer ---------- */
   footer {
-    margin-top: auto;
-    padding-top: 20px;
+    padding-top: 18px;
     text-align: center;
     font-weight: 700;
-    font-size: 16px;
+    font-size: 14px;
+    letter-spacing: 0.04em;
   }
 
-  /* ---------- Phones: too small for one screen, so the page scrolls ---------- */
-  @media (max-width: 760px) {
+  /* ---------- Tablets and phones: the page scrolls ---------- */
+  @media (max-width: 900px) {
+    .resume { grid-template-columns: 1fr 1fr; }
+    .resume .wide { grid-column: span 2; }
+    .box { min-height: 0; }
+  }
+  @media (max-width: 900px) {
+    .hero {
+      --photo-h: 170px;
+      grid-template-columns: auto 1fr;
+      grid-template-areas: "name name" "photo words";
+      gap: 20px;
+    }
+  }
+  @media (max-width: 640px) {
+    .page { padding: 24px 20px 16px; }
     .nav { gap: 16px; }
     h1 { font-size: 40px; }
-    .intro { --photo-h: 150px; gap: 20px; }
-    .resume { grid-template-columns: 1fr 1fr; }
+    .hero { --photo-h: 140px; gap: 18px 16px; }
   }
-  @media (max-width: 420px) {
-    .intro { --photo-h: 125px; gap: 16px; }
+  @media (max-width: 400px) {
+    .hero { --photo-h: 118px; }
   }
 </style>
 </head>
@@ -208,16 +272,21 @@
 
       <!-- ===== PAGE 1: Me  (heinsoeoo.me) ===== -->
       <section class="slide" id="me" aria-label="Me">
-        <div class="name-block">
-          <p class="nickname">(Call me Hein)</p>
-          <h1>Hein Soe Oo</h1>
-          <p class="say">(Hayn- Soh- Oo)<span class="burmese" lang="my">ဟိန်းစိုးဦး</span><span class="korean" lang="ko">해인소우</span></p>
-        </div>
-
-        <!-- Photo with the Impact words beside it -->
-        <div class="intro">
+        <!-- Hero: photo, name, and the Impact words -->
+        <div class="hero">
           <!-- Upload your photo to the repository and name it photo.jpg -->
           <img src="photo.jpg" alt="Photo of Hein Soe Oo">
+
+          <div class="name-block">
+            <p class="nickname">(Call me Hein)</p>
+            <h1>Hein Soe Oo</h1>
+            <p class="say">
+              <span>(Hayn- Soh- Oo)</span>
+              <span class="burmese" lang="my">ဟိန်းစိုးဦး</span>
+              <span class="korean" lang="ko">해인소우</span>
+            </p>
+          </div>
+
           <ul class="focus">
             <li>Journalism</li>
             <li>Data</li>
@@ -227,32 +296,56 @@
           </ul>
         </div>
 
-        <!-- Resume: fill in the empty sections later -->
+        <!-- Resume: each section is its own box. Fill in the empty ones later. -->
         <div class="resume">
-          <section>
+          <section class="box wide">
             <h3>Education</h3>
-            <p>
-              <strong>Sogang University</strong><br>
-              2024 – 2028<br>
-              Journalism, major<br>
-              Computer Science, second major
-            </p>
+            <div class="edu-top">
+              <span>Sogang University</span>
+              <span>2024 – 2028</span>
+            </div>
+            <dl class="edu">
+              <dt>Major</dt>
+              <dd>Journalism</dd>
+              <dt>Second major</dt>
+              <dd>Computer Science</dd>
+            </dl>
           </section>
-          <section>
+
+          <section class="box">
             <h3>Experience</h3>
-            <p></p>
           </section>
-          <section>
+
+          <section class="box">
             <h3>Skills</h3>
-            <p></p>
+            <ul class="list">
+              <li>Premiere Pro</li>
+              <li>DaVinci Resolve</li>
+              <li>Python</li>
+              <li>Creative Writing</li>
+            </ul>
           </section>
-          <section>
+
+          <section class="box">
             <h3>Languages</h3>
-            <p></p>
+            <dl class="edu">
+              <dt>Burmese</dt>
+              <dd>Native</dd>
+              <dt>English</dt>
+              <dd></dd>
+              <dt>Korean</dt>
+              <dd>TOPIK 5</dd>
+              <dt>Spanish</dt>
+              <dd></dd>
+            </dl>
           </section>
-          <section>
+
+          <section class="box wide">
             <h3>Contact</h3>
-            <p><a href="mailto:heinsoeoo.154202@gmail.com">heinsoeoo.154202@gmail.com</a></p>
+            <a class="contact-line" href="mailto:heinsoeoo.154202@gmail.com">
+              <i class="fa-regular fa-envelope"></i>
+              <span>heinsoeoo.154202@gmail.com</span>
+            </a>
           </section>
         </div>
       </section>
