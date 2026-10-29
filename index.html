@@ -12,11 +12,13 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
 <style>
+  /* ---------- Custom Burmese font (upload cherry-unicode.ttf next to index.html) ---------- */
   @font-face {
     font-family: "Cherry Unicode";
     src: url("cherry-unicode.ttf") format("truetype");
-    font-display: swap;
+    font-display: swap;   /* shows a backup font until this one loads */
   }
+
   /* ---------- Colors: change them here ---------- */
   :root {
     --me: #458aab;            /* Me page background */
@@ -142,8 +144,8 @@
   }
   .burmese {
     font-family: "Cherry Unicode", "Noto Sans Myanmar", sans-serif;
-    font-weight: 700;
-    font-size: 17px;
+    font-weight: 400;   /* the font has no bold version */
+    font-size: 18px;
   }
   .korean {
     font-family: "Noto Sans KR", sans-serif;
@@ -298,6 +300,27 @@
     border-radius: 12px;
   }
   .shoot h3 { margin: 0; font-size: 16px; font-weight: 800; }
+  .shoot { transition: background-color 0.2s; }
+  .track { align-items: flex-start; }   /* an opened card doesn't stretch the others */
+
+  /* Laptops: the whole card is clickable */
+  @media (hover: hover) and (pointer: fine) {
+    .shoot { cursor: pointer; }
+    .shoot:hover { background: rgba(255, 255, 255, 0.18); }
+  }
+
+  /* Extra text and photos shown when a card is opened on a phone */
+  .story { margin: 12px 0 0; font-size: 13px; line-height: 1.6; }
+  .more .shots { margin-top: 10px; }
+
+  .see-more {
+    display: inline-block;
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
   .where, .when { margin: 4px 0 0; font-size: 13px; }
   .where i { margin-right: 6px; }
   .when { opacity: 0.85; }
@@ -463,40 +486,89 @@
             <button class="arrow prev" type="button" aria-label="Newer shoots"><i class="fa-solid fa-chevron-left"></i></button>
             <div class="track">
           <!-- NEWEST SHOOT FIRST. To add a shoot, copy one whole <article> ... </article>
-               block, paste it at the top of this list, and change its text and photo names. -->
-          <article class="shoot">
+               block, paste it at the top of this list, and give it a new number in
+               three places: id="shootN", href="shoot.html#shootN", and the photo names. -->
+          <article class="shoot" id="shoot3">
             <h3>Subtitle</h3>
             <p class="where"><i class="fa-solid fa-location-dot"></i>Location</p>
             <p class="when">Date</p>
+
+            <!-- 4 preview photos -->
             <div class="shots">
-              <img src="photos/shoot3-1.jpg" alt="" loading="lazy">
-              <img src="photos/shoot3-2.jpg" alt="" loading="lazy">
-              <img src="photos/shoot3-3.jpg" alt="" loading="lazy">
-              <img src="photos/shoot3-4.jpg" alt="" loading="lazy">
+                <img src="photos/shoot3-1.jpg" alt="" loading="lazy">
+                <img src="photos/shoot3-2.jpg" alt="" loading="lazy">
+                <img src="photos/shoot3-3.jpg" alt="" loading="lazy">
+                <img src="photos/shoot3-4.jpg" alt="" loading="lazy">
             </div>
+
+            <!-- Extra text and photos: hidden in the card, shown when opened -->
+            <div class="more" hidden>
+              <p class="story">Write about this shoot here.</p>
+              <div class="shots">
+                <img src="photos/shoot3-5.jpg" alt="" loading="lazy">
+                <img src="photos/shoot3-6.jpg" alt="" loading="lazy">
+                <img src="photos/shoot3-7.jpg" alt="" loading="lazy">
+                <img src="photos/shoot3-8.jpg" alt="" loading="lazy">
+              </div>
+            </div>
+
+            <a class="see-more" href="shoot.html#shoot3" target="_blank" rel="noopener" aria-expanded="false"><span>See all photos</span></a>
           </article>
-          <article class="shoot">
+
+          <article class="shoot" id="shoot2">
             <h3>Subtitle</h3>
             <p class="where"><i class="fa-solid fa-location-dot"></i>Location</p>
             <p class="when">Date</p>
+
+            <!-- 4 preview photos -->
             <div class="shots">
-              <img src="photos/shoot2-1.jpg" alt="" loading="lazy">
-              <img src="photos/shoot2-2.jpg" alt="" loading="lazy">
-              <img src="photos/shoot2-3.jpg" alt="" loading="lazy">
-              <img src="photos/shoot2-4.jpg" alt="" loading="lazy">
+                <img src="photos/shoot2-1.jpg" alt="" loading="lazy">
+                <img src="photos/shoot2-2.jpg" alt="" loading="lazy">
+                <img src="photos/shoot2-3.jpg" alt="" loading="lazy">
+                <img src="photos/shoot2-4.jpg" alt="" loading="lazy">
             </div>
+
+            <!-- Extra text and photos: hidden in the card, shown when opened -->
+            <div class="more" hidden>
+              <p class="story">Write about this shoot here.</p>
+              <div class="shots">
+                <img src="photos/shoot2-5.jpg" alt="" loading="lazy">
+                <img src="photos/shoot2-6.jpg" alt="" loading="lazy">
+                <img src="photos/shoot2-7.jpg" alt="" loading="lazy">
+                <img src="photos/shoot2-8.jpg" alt="" loading="lazy">
+              </div>
+            </div>
+
+            <a class="see-more" href="shoot.html#shoot2" target="_blank" rel="noopener" aria-expanded="false"><span>See all photos</span></a>
           </article>
-          <article class="shoot">
+
+          <article class="shoot" id="shoot1">
             <h3>Subtitle</h3>
             <p class="where"><i class="fa-solid fa-location-dot"></i>Location</p>
             <p class="when">Date</p>
+
+            <!-- 4 preview photos -->
             <div class="shots">
-              <img src="photos/shoot1-1.jpg" alt="" loading="lazy">
-              <img src="photos/shoot1-2.jpg" alt="" loading="lazy">
-              <img src="photos/shoot1-3.jpg" alt="" loading="lazy">
-              <img src="photos/shoot1-4.jpg" alt="" loading="lazy">
+                <img src="photos/shoot1-1.jpg" alt="" loading="lazy">
+                <img src="photos/shoot1-2.jpg" alt="" loading="lazy">
+                <img src="photos/shoot1-3.jpg" alt="" loading="lazy">
+                <img src="photos/shoot1-4.jpg" alt="" loading="lazy">
             </div>
+
+            <!-- Extra text and photos: hidden in the card, shown when opened -->
+            <div class="more" hidden>
+              <p class="story">Write about this shoot here.</p>
+              <div class="shots">
+                <img src="photos/shoot1-5.jpg" alt="" loading="lazy">
+                <img src="photos/shoot1-6.jpg" alt="" loading="lazy">
+                <img src="photos/shoot1-7.jpg" alt="" loading="lazy">
+                <img src="photos/shoot1-8.jpg" alt="" loading="lazy">
+              </div>
+            </div>
+
+            <a class="see-more" href="shoot.html#shoot1" target="_blank" rel="noopener" aria-expanded="false"><span>See all photos</span></a>
           </article>
+
             </div>
             <button class="arrow next" type="button" aria-label="Older shoots"><i class="fa-solid fa-chevron-right"></i></button>
           </div>
@@ -583,6 +655,34 @@
     const showBlank = () => { if (img.src !== blank) img.src = blank; };
     img.addEventListener('error', showBlank);
     if (img.complete && img.naturalWidth === 0) showBlank();
+  });
+
+  // Shoot cards: on laptops, clicking opens the full shoot in a new tab.
+  // On phones and tablets, tapping expands the card to show the extra photos and text.
+  const bigScreen = window.matchMedia('(hover: hover) and (pointer: fine)');
+  document.querySelectorAll('.shoot').forEach(card => {
+    const link = card.querySelector('.see-more');
+    const more = card.querySelector('.more');
+    const label = link.querySelector('span');
+
+    function setLabel() {
+      label.textContent = !bigScreen.matches && card.classList.contains('open') ? 'Show less' : 'See all photos';
+    }
+
+    card.addEventListener('click', e => {
+      if (bigScreen.matches) {
+        // Clicking the link itself opens the tab normally; clicking anywhere else on the card does the same
+        if (!link.contains(e.target)) window.open(link.href, '_blank', 'noopener');
+        return;
+      }
+      if (more.contains(e.target)) return;   // tapping the extra photos doesn't close the card
+      e.preventDefault();
+      const open = card.classList.toggle('open');
+      more.hidden = !open;
+      link.setAttribute('aria-expanded', open);
+      setLabel();
+    });
+    bigScreen.addEventListener('change', setLabel);
   });
 
   // Photo carousels: the arrows move one shoot at a time,
