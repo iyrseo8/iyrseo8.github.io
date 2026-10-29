@@ -17,12 +17,11 @@
     src: url("cherry-unicode.ttf") format("truetype");
     font-display: swap;
   }
-  
   /* ---------- Colors: change them here ---------- */
   :root {
     --me: #458aab;            /* Me page background */
     --publications: #6f9a6b;  /* Publications page background */
-    --side-quests: #ffe6a7;   /* Side quests page background */
+    --side-quests: #dd2d4a;   /* Side quests page background */
     --text: #fff;             /* one color for all text */
     --box: rgba(255, 255, 255, 0.12);         /* resume box fill */
     --box-line: rgba(255, 255, 255, 0.35);    /* resume box outline */
@@ -143,7 +142,7 @@
   }
   .burmese {
     font-family: "Cherry Unicode", "Noto Sans Myanmar", sans-serif;
-    font-weight: 400;
+    font-weight: 700;
     font-size: 17px;
   }
   .korean {
@@ -252,6 +251,100 @@
   @media (max-width: 400px) {
     .hero { --photo-h: 118px; }
   }
+
+  /* ---------- Side quests: Photography ---------- */
+  .sq-section { margin-top: 24px; }
+  .sq-title {
+    margin: 0 0 14px;
+    font-family: Impact, "Anton", "Arial Narrow", sans-serif;
+    font-weight: 400;
+    font-size: 44px;
+    line-height: 1;
+    letter-spacing: 0.02em;
+  }
+
+  /* The big box: arrow | cards | arrow */
+  .carousel {
+    display: grid;
+    grid-template-columns: 40px 1fr 40px;
+    align-items: center;
+    gap: 12px;
+    padding: 18px 14px;
+    background: var(--box);
+    border: 1px solid var(--box-line);
+    border-radius: 16px;
+  }
+
+  /* The row of cards. --per-view = how many cards show at once */
+  .track {
+    --per-view: 3;
+    --gap: 14px;
+    display: flex;
+    gap: var(--gap);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-x: contain;   /* sliding here won't slide the whole page */
+    scrollbar-width: none;
+  }
+  .track::-webkit-scrollbar { display: none; }
+
+  /* One shoot: title, location, date, four photos */
+  .shoot {
+    flex: 0 0 calc((100% - (var(--per-view) - 1) * var(--gap)) / var(--per-view));
+    scroll-snap-align: start;
+    padding: 14px;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid var(--box-line);
+    border-radius: 12px;
+  }
+  .shoot h3 { margin: 0; font-size: 16px; font-weight: 800; }
+  .where, .when { margin: 4px 0 0; font-size: 13px; }
+  .where i { margin-right: 6px; }
+  .when { opacity: 0.85; }
+
+  /* Four photos in a 2 x 2 rectangle */
+  .shots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    margin-top: 12px;
+  }
+  .shots img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.15);   /* shows until a photo is added */
+  }
+
+  /* Round arrow buttons */
+  .arrow {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 1px solid var(--box-line);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: var(--text);
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+  }
+  .arrow:hover { background: rgba(255, 255, 255, 0.25); }
+  .arrow:disabled { opacity: 0.3; cursor: default; }
+  .arrow:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+
+  @media (max-width: 900px) {
+    .track { --per-view: 2; }
+  }
+  @media (max-width: 640px) {
+    .track { --per-view: 1; }
+    .carousel { grid-template-columns: 32px 1fr 32px; gap: 8px; padding: 14px 8px; }
+    .arrow { width: 32px; height: 32px; font-size: 13px; }
+  }
 </style>
 </head>
 
@@ -329,7 +422,6 @@
               <li>DaVinci Resolve</li>
               <li>Python</li>
               <li>Creative Writing</li>
-              <li>Lightroom</li>
             </ul>
           </section>
 
@@ -363,6 +455,53 @@
 
       <!-- ===== PAGE 3: Side quests  (heinsoeoo.me/#side-quests) — empty for now ===== -->
       <section class="slide" id="side-quests" aria-label="Side quests">
+
+        <!-- ----- Photography ----- -->
+        <div class="sq-section">
+          <h2 class="sq-title">Photography</h2>
+          <div class="carousel">
+            <button class="arrow prev" type="button" aria-label="Newer shoots"><i class="fa-solid fa-chevron-left"></i></button>
+            <div class="track">
+          <!-- NEWEST SHOOT FIRST. To add a shoot, copy one whole <article> ... </article>
+               block, paste it at the top of this list, and change its text and photo names. -->
+          <article class="shoot">
+            <h3>Subtitle</h3>
+            <p class="where"><i class="fa-solid fa-location-dot"></i>Location</p>
+            <p class="when">Date</p>
+            <div class="shots">
+              <img src="photos/shoot3-1.jpg" alt="" loading="lazy">
+              <img src="photos/shoot3-2.jpg" alt="" loading="lazy">
+              <img src="photos/shoot3-3.jpg" alt="" loading="lazy">
+              <img src="photos/shoot3-4.jpg" alt="" loading="lazy">
+            </div>
+          </article>
+          <article class="shoot">
+            <h3>Subtitle</h3>
+            <p class="where"><i class="fa-solid fa-location-dot"></i>Location</p>
+            <p class="when">Date</p>
+            <div class="shots">
+              <img src="photos/shoot2-1.jpg" alt="" loading="lazy">
+              <img src="photos/shoot2-2.jpg" alt="" loading="lazy">
+              <img src="photos/shoot2-3.jpg" alt="" loading="lazy">
+              <img src="photos/shoot2-4.jpg" alt="" loading="lazy">
+            </div>
+          </article>
+          <article class="shoot">
+            <h3>Subtitle</h3>
+            <p class="where"><i class="fa-solid fa-location-dot"></i>Location</p>
+            <p class="when">Date</p>
+            <div class="shots">
+              <img src="photos/shoot1-1.jpg" alt="" loading="lazy">
+              <img src="photos/shoot1-2.jpg" alt="" loading="lazy">
+              <img src="photos/shoot1-3.jpg" alt="" loading="lazy">
+              <img src="photos/shoot1-4.jpg" alt="" loading="lazy">
+            </div>
+          </article>
+            </div>
+            <button class="arrow next" type="button" aria-label="Older shoots"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+        </div>
+
       </section>
 
     </main>
@@ -437,6 +576,41 @@
   }
   openFromAddress();
   window.addEventListener('load', openFromAddress);
+
+  // Photos that aren't uploaded yet show as empty boxes instead of broken-image icons
+  const blank = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
+  document.querySelectorAll('.shots img').forEach(img => {
+    const showBlank = () => { if (img.src !== blank) img.src = blank; };
+    img.addEventListener('error', showBlank);
+    if (img.complete && img.naturalWidth === 0) showBlank();
+  });
+
+  // Photo carousels: the arrows move one shoot at a time,
+  // and fade out when there's nothing more in that direction.
+  document.querySelectorAll('.carousel').forEach(carousel => {
+    const track = carousel.querySelector('.track');
+    const prev = carousel.querySelector('.prev');
+    const next = carousel.querySelector('.next');
+
+    function step() {
+      const card = track.querySelector('.shoot');
+      const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+      return card ? card.offsetWidth + gap : track.clientWidth;
+    }
+    function move(direction) {
+      track.scrollBy({ left: direction * step(), behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+    function updateArrows() {
+      prev.disabled = track.scrollLeft <= 2;
+      next.disabled = track.scrollLeft + track.clientWidth >= track.scrollWidth - 2;
+    }
+
+    prev.addEventListener('click', () => move(-1));
+    next.addEventListener('click', () => move(1));
+    track.addEventListener('scroll', updateArrows);
+    window.addEventListener('resize', updateArrows);
+    updateArrows();
+  });
 </script>
 </body>
 </html>
