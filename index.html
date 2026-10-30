@@ -124,7 +124,7 @@
   }
 
   /* Name */
-  .name-block { grid-area: name; }
+    .name-block { grid-area: name; margin-bottom: 14px; }   /* bigger number = name sits higher */
   .nickname { margin: 0; font-weight: 700; font-size: 13px; }
   h1 {
     margin: 2px 0 0;
@@ -152,6 +152,15 @@
     font-weight: 700;
     font-size: 15px;
   }
+    .email {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .email:hover span { text-decoration: underline; text-underline-offset: 3px; }
 
   /* Impact words */
   .focus {
@@ -169,7 +178,7 @@
   /* ---------- Resume boxes ---------- */
   .resume {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);   /* five equal boxes */
+    grid-template-columns: repeat(4, 1fr);   /* four equal boxes */
     gap: 14px;
     margin-top: 22px;
   }
@@ -210,16 +219,6 @@
   /* Simple lists (Languages, and later Skills or Experience) */
   .list { margin: 0; padding: 0; list-style: none; }
   .list li + li { margin-top: 3px; }
-
-  /* Contact */
-  .contact-line {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    overflow-wrap: anywhere;
-  }
-  .contact-line i { font-size: 15px; }
-  .contact-line:hover span { text-decoration: underline; text-underline-offset: 3px; }
 
   /* ---------- Footer ---------- */
   footer {
@@ -409,6 +408,10 @@
               <span class="burmese" lang="my">ဟိန်းစိုးဦး</span>
               <span class="korean" lang="ko">해인소우</span>
             </p>
+                        <a class="email" href="mailto:heinsoeoo.154202@gmail.com">
+              <i class="fa-regular fa-envelope"></i>
+              <span>heinsoeoo.154202@gmail.com</span>
+            </a>
           </div>
 
           <ul class="focus">
@@ -460,14 +463,6 @@
               <dt>Spanish</dt>
               <dd></dd>
             </dl>
-          </section>
-
-          <section class="box wide">
-            <h3>Contact</h3>
-            <a class="contact-line" href="mailto:heinsoeoo.154202@gmail.com">
-              <i class="fa-regular fa-envelope"></i>
-              <span>heinsoeoo.154202<wbr>@gmail.com</span>
-            </a>
           </section>
         </div>
       </section>
