@@ -198,8 +198,19 @@
   }
 
   /* Education: school and years on one line, majors lined up below */
-  .edu-top { font-weight: 700; }
-  .years { margin-bottom: 8px; opacity: 0.85; }
+  ..edu-top {
+  display: flex;
+  justify-content: space-between;   /* university on the left, years on the right */
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.years {
+  font-weight: 400;
+  opacity: 0.85;
+  white-space: nowrap;   /* keeps "2024 – 2028" from breaking onto two lines */
+}
   .edu {
     display: grid;
     grid-template-columns: max-content 1fr;
